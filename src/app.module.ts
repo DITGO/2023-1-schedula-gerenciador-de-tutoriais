@@ -27,7 +27,7 @@ import { CategoriesModule } from './categories/categories.module';
       synchronize: true,
     }),
     CacheModule.register({ isGlobal: true }),
-    CategoriesModule
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
