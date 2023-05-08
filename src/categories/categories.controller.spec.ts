@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from './categories.service';
+import { CacheModule } from '@nestjs/common';
+
 
 describe('CategoriesController', () => {
   let controller: CategoriesController;
@@ -9,7 +11,10 @@ describe('CategoriesController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CategoriesController],
       providers: [CategoriesService],
-    }).compile();
+      imports: [CacheModule.register()],
+    }).overrideProvider(CategoriesService)
+      .useValue({})
+      .compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
   });
