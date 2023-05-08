@@ -20,6 +20,8 @@ services:
       - DATABASE_PASS=postgres
       - DATABASE_DB=schedula_tutorial
       - DATABASE_PORT=5432
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:latest
