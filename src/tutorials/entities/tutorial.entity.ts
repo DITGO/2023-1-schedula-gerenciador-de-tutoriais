@@ -18,7 +18,12 @@ export class Tutorial extends BaseEntity {
   name: string;
 
   @Column()
-  file: string;
+  filename: string;
+
+  @Column({
+    type: 'bytea',
+  })
+  data: any;
 
   @ManyToOne(() => Category, (category: Category) => category.tutorials)
   @JoinColumn()

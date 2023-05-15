@@ -10,6 +10,8 @@ import { CreateTutorialDto } from './dto/create-tutorial.dto';
 import { UpdateTutorialDto } from './dto/update-tutorial.dto';
 import { Tutorial } from './entities/tutorial.entity';
 
+import { Express } from 'express';
+
 @Injectable()
 export class TutorialsService {
   constructor(
@@ -20,19 +22,19 @@ export class TutorialsService {
 
   // Cria um posto de trabalho
   async createTutorial(
-    createTutorialDto: CreateTutorialDto,
+    createTutorialDto: CreateTutorialDto
   ): Promise<Tutorial> {
     try {
       const { category_id } =
         createTutorialDto;
       const category = await this.categoriesService.findCategoryById(category_id);
 
-      const work = this.tutorialRepo.create({
+      const tutorial = this.tutorialRepo.create({
         ...createTutorialDto,
         category
       });
-      await this.tutorialRepo.save(work);
-      return work;
+      await this.tutorialRepo.save(tutorial);
+      return tutorial;
     } catch (err) {
       throw new InternalServerErrorException(err.message);
     }

@@ -6,8 +6,9 @@ export class CreateTutorialDto {
   @MaxLength(500, { message: 'A categoria deve ter no máximo 500 caracteres' })
   name: string;
 
-  @IsNotEmpty()
-  file: string;
+  filename: string;
+
+  data: any;
 
   @IsNotEmpty()
   category_id: string;

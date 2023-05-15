@@ -26,12 +26,12 @@ export class CategoriesService {
   }
 
   async findCategories(): Promise<Category[]> {
-    const cities = await this.categoryRepo.find();
+    const categories = await this.categoryRepo.find();
 
-    if (cities.length === 0) {
+    if (categories.length === 0) {
       throw new NotFoundException('Não existem categorias cadastradas');
     }
-    return cities;
+    return categories;
   }
 
   async findCategoryById(idCategory: string) {
