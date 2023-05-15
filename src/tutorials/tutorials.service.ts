@@ -101,7 +101,6 @@ export class TutorialsService {
 
       return 'Deletado com sucesso';
     } catch (err) {
-      console.log(err);
       throw new InternalServerErrorException(err.message);
     }
   }

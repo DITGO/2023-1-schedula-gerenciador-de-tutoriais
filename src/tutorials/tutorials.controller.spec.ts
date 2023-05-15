@@ -15,13 +15,15 @@ describe('TutorialsController', () => {
   const mockCreateTutorialDto: CreateTutorialDto = {
     name: 'mockStation',
     category_id: mockUuid,
-    file: 'mockFile',
+    filename: 'mockFile',
+    data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10]
   };
 
   const mockUpdateTutorialDto: UpdateTutorialDto = {
     name: 'updatedMockStation',
     category_id: mockUuid,
-    file: 'updatedMockFile',
+    filename: 'updatedMockFile',
+    data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10]
   };
 
   const mockTutorialEntityList = [{ ...mockCreateTutorialDto }];
@@ -79,7 +81,7 @@ describe('TutorialsController', () => {
 
   describe('createTutorial', () => {
     it('should create a tutorial entity successfully', async () => {
-      const result = await controller.createTutorial(mockCreateTutorialDto);
+      const result = await controller.createTutorial(mockCreateTutorialDto, mockCreateTutorialDto.data);
 
       expect(result).toEqual(mockCreateTutorialDto);
 
@@ -95,7 +97,7 @@ describe('TutorialsController', () => {
     it('should update a tutorial entity succesfully', async () => {
       const id = mockUuid;
 
-      const result = await controller.updateTutorial(id, mockUpdateTutorialDto);
+      const result = await controller.updateTutorial(id, mockUpdateTutorialDto, mockUpdateTutorialDto.data);
 
       expect(result).toEqual(mockUpdateTutorialDto);
 

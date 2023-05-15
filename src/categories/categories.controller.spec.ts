@@ -98,6 +98,7 @@ describe('CategoriesController', () => {
     const successMessage = 'Categoria removida com sucesso';
     const response = await categoriesController.deleteCategory(categoryId);
 
-    expect(response).toMatchObject({ message: successMessage });
+    expect(response).toBe(successMessage);
   });
+
 });

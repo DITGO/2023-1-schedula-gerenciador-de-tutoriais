@@ -22,7 +22,8 @@ describe('TutorialsService', () => {
   const mockCategory = {
     id: 'MockCategoryId',
     name: 'mockCategory',
-    file: 'mockFile',
+    filename: 'mockFile',
+    data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10],
   };
 
   const mockCategoryList = [{ ...mockCategory }];
@@ -30,13 +31,15 @@ describe('TutorialsService', () => {
   const mockCreateTutorialDto: CreateTutorialDto = {
     name: 'mockStation',
     category_id: 'mockCategoryId',
-    file: 'mockFile',
+    filename: 'mockFile',
+    data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10],
   };
 
   const mockUpdateTutorialDto: UpdateTutorialDto = {
     name: 'updatedMockStation',
     category_id: 'mockCategoryId',
-    file: 'updatedMockFile',
+    filename: 'updatedMockFile',
+    data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10],
   };
 
   const mockCreateTutorialEntity = {
