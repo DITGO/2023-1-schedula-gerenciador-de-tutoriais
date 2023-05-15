@@ -10,14 +10,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
+import { Category } from './entities/category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
 
 @Controller('categories')
 @UseInterceptors(CacheInterceptor)
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(private categoriesService: CategoriesService) {}
 
   @Get()
   async findCategories(): Promise<Category[]> {

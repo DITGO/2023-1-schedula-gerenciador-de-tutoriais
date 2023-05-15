@@ -1,8 +1,14 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class CreateCategoryDto {
+export class CreateTutorialDto {
   @IsNotEmpty({ message: 'Insira uma categoria' })
   @IsString({ message: 'Insira uma categoria válida' })
-  @MaxLength(50, { message: 'A categoria deve ter no máximo 50 caracteres' })
+  @MaxLength(500, { message: 'A categoria deve ter no máximo 500 caracteres' })
   name: string;
+
+  @IsNotEmpty()
+  file: string;
+
+  @IsNotEmpty()
+  category_id: string;
 }

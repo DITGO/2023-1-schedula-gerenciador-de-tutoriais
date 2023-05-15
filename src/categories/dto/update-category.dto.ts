@@ -1,9 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCategoryDto } from './create-category.dto';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-import { IsString } from 'class-validator';
-
-export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {
-  @IsString({ message: 'Informe uma categoria válida' })
+export class UpdateCategoryDto {
+  @IsNotEmpty({ message: 'Insira uma categoria' })
+  @IsString({ message: 'Insira uma categoria válida' })
+  @MaxLength(50, { message: 'A categoria deve ter no máximo 50 caracteres' })
   name: string;
 }

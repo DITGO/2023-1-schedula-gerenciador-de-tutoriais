@@ -1,4 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Tutorial } from '../../tutorials/entities/tutorial.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Relation,
+} from 'typeorm';
 
 @Entity()
 export class Category extends BaseEntity {
@@ -7,4 +15,7 @@ export class Category extends BaseEntity {
 
   @Column()
   name: string;
+
+  @OneToMany(() => Tutorial, (tutorial: Tutorial) => tutorial.category)
+  tutorials: Relation<Tutorial>[];
 }
