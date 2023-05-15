@@ -33,19 +33,13 @@ describe('TutorialsController', () => {
         {
           provide: TutorialsService,
           useValue: {
-            createTutorial: jest
-              .fn()
-              .mockResolvedValue(mockCreateTutorialDto),
+            createTutorial: jest.fn().mockResolvedValue(mockCreateTutorialDto),
             findAll: jest.fn().mockResolvedValue(mockTutorialEntityList),
             findTutorial: jest
               .fn()
               .mockResolvedValue(mockTutorialEntityList[0]),
-            updateTutorial: jest
-              .fn()
-              .mockResolvedValue(mockUpdateTutorialDto),
-            deleteTutorial: jest
-              .fn()
-              .mockResolvedValue('Deletado com sucesso'),
+            updateTutorial: jest.fn().mockResolvedValue(mockUpdateTutorialDto),
+            deleteTutorial: jest.fn().mockResolvedValue('Deletado com sucesso'),
           },
         },
       ],
@@ -118,17 +112,13 @@ describe('TutorialsController', () => {
     it('should delete a tutorial entity succesfully', async () => {
       const id = mockUuid;
 
-      const result = await controller.deleteTutorial(
-        id
-      );
+      const result = await controller.deleteTutorial(id);
 
       expect(result).toMatch('Deletado com sucesso');
 
       expect(service.deleteTutorial).toHaveBeenCalledTimes(1);
 
-      expect(service.deleteTutorial).toHaveBeenCalledWith(
-        id
-      );
+      expect(service.deleteTutorial).toHaveBeenCalledWith(id);
     });
   });
 });

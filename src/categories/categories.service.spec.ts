@@ -22,7 +22,7 @@ describe('CategoriesService', () => {
   };
 
   const mockUpdateCategoryDto: UpdateCategoryDto = {
-    name: 'Test Name Updated'
+    name: 'Test Name Updated',
   };
 
   const categoriesEntityList = [{ ...mockCategoryDto }];
@@ -46,7 +46,9 @@ describe('CategoriesService', () => {
     }).compile();
 
     categoriesService = module.get<CategoriesService>(CategoriesService);
-    categoriesRepository = module.get<Repository<Category>>(getRepositoryToken(Category));
+    categoriesRepository = module.get<Repository<Category>>(
+      getRepositoryToken(Category),
+    );
   });
 
   it('should be defined', () => {
@@ -67,9 +69,9 @@ describe('CategoriesService', () => {
     it('should return an internal error exception', async () => {
       jest.spyOn(categoriesRepository, 'save').mockRejectedValue(new Error());
 
-      expect(categoriesService.createCategory(mockCategoryDto)).rejects.toThrowError(
-        InternalServerErrorException,
-      );
+      expect(
+        categoriesService.createCategory(mockCategoryDto),
+      ).rejects.toThrowError(InternalServerErrorException);
     });
   });
 
@@ -120,9 +122,9 @@ describe('CategoriesService', () => {
     it('should return an internal server error exception when category cannot be updated', async () => {
       jest.spyOn(categoriesRepository, 'save').mockRejectedValue(new Error());
 
-      expect(categoriesService.updateCategory({ ...dto }, id)).rejects.toThrowError(
-        InternalServerErrorException,
-      );
+      expect(
+        categoriesService.updateCategory({ ...dto }, id),
+      ).rejects.toThrowError(InternalServerErrorException);
     });
   });
 

@@ -5,7 +5,7 @@ export class UpdateTutorialDto {
   @IsString({ message: 'Insira uma categoria válida' })
   @MaxLength(500, { message: 'A categoria deve ter no máximo 500 caracteres' })
   name: string;
-  
+
   filename: string;
 
   data: any;

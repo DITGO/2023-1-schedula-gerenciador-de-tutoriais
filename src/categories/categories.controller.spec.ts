@@ -12,7 +12,7 @@ describe('CategoriesController', () => {
   const mockUuid = uuidv4();
 
   const mockCreateCategoryDto: CreateCategoryDto = {
-    name: 'mock_category'
+    name: 'mock_category',
   };
 
   const mockUpdteCategoryDto: UpdateCategoryDto = {
@@ -56,7 +56,8 @@ describe('CategoriesController', () => {
       .useValue(mockCategoriesService)
       .compile();
 
-    categoriesController = module.get<CategoriesController>(CategoriesController);
+    categoriesController =
+      module.get<CategoriesController>(CategoriesController);
   });
 
   it('should be defined', () => {

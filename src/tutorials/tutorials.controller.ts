@@ -5,9 +5,10 @@ import {
   Body,
   Param,
   Put,
+  Delete,
   UseInterceptors,
   CacheInterceptor,
-  UploadedFile
+  UploadedFile,
 } from '@nestjs/common';
 import { TutorialsService } from './tutorials.service';
 import { CreateTutorialDto } from './dto/create-tutorial.dto';
@@ -29,7 +30,6 @@ export class TutorialsController {
     @Body() createTutorialDto: CreateTutorialDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Tutorial> {
-    
     createTutorialDto.filename = file.originalname;
     createTutorialDto.data = file.buffer;
 
@@ -56,7 +56,6 @@ export class TutorialsController {
     @Body() updateTutorialDto: UpdateTutorialDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Tutorial> {
-
     updateTutorialDto.filename = file.originalname;
     updateTutorialDto.data = file.buffer;
 
@@ -64,10 +63,8 @@ export class TutorialsController {
   }
 
   // Rota para excluir um tutorial cadastrado
-  @Post(':id')
-  async deleteTutorial(
-    @Param('id') id: string
-  ): Promise<string> {
+  @Delete(':id')
+  async deleteTutorial(@Param('id') id: string): Promise<string> {
     return await this.tutorialService.deleteTutorial(id);
   }
 }

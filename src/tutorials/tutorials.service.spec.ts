@@ -67,9 +67,7 @@ describe('TutorialsService', () => {
             create: jest.fn().mockResolvedValue(mockCreateTutorialEntity),
             find: jest.fn().mockResolvedValue(mockTutorialEntityList),
             findOne: jest.fn().mockResolvedValue(mockTutorialEntityList[0]),
-            findOneBy: jest
-              .fn()
-              .mockResolvedValue(mockTutorialEntityList[0]),
+            findOneBy: jest.fn().mockResolvedValue(mockTutorialEntityList[0]),
             update: jest.fn().mockResolvedValue(mockUpdateTutorialEntity),
             delete: jest.fn().mockResolvedValue('Deletado com sucesso'),
             save: jest.fn(),
@@ -193,9 +191,7 @@ describe('TutorialsService', () => {
 
   describe('deleteTutorial', () => {
     it('should delete a tutorial entity successfully', async () => {
-      const result = await service.deleteTutorial(
-        mockUuid
-      );
+      const result = await service.deleteTutorial(mockUuid);
 
       expect(result).toEqual('Deletado com sucesso');
     });
@@ -203,18 +199,17 @@ describe('TutorialsService', () => {
     it('should throw a not found error', async () => {
       jest.spyOn(repo, 'findOneBy').mockResolvedValueOnce(null);
 
-      expect(
-        service.deleteTutorial(mockUuid),
-      ).rejects.toThrowError(NotFoundException);
+      expect(service.deleteTutorial(mockUuid)).rejects.toThrowError(
+        NotFoundException,
+      );
     });
 
     it('should throw a internal server error', async () => {
       jest.spyOn(repo, 'delete').mockRejectedValueOnce(new Error());
 
-      expect(
-        service.deleteTutorial(mockUuid,),
-      ).rejects.toThrowError(InternalServerErrorException);
+      expect(service.deleteTutorial(mockUuid)).rejects.toThrowError(
+        InternalServerErrorException,
+      );
     });
   });
-
 });

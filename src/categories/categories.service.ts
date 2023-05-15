@@ -42,7 +42,10 @@ export class CategoriesService {
     return category;
   }
 
-  async updateCategory(dto: UpdateCategoryDto, idCategory: string): Promise<Category> {
+  async updateCategory(
+    dto: UpdateCategoryDto,
+    idCategory: string,
+  ): Promise<Category> {
     const { name } = dto;
     const category = await this.categoryRepo.findOneBy({ id: idCategory });
 
@@ -60,7 +63,9 @@ export class CategoriesService {
     const result = await this.categoryRepo.delete({ id: idCategory });
     if (!result) throw new NotFoundException('Categoria não encontrada');
     if (result.affected === 0) {
-      throw new NotFoundException('Não foi encontrada uma categoria com este id');
+      throw new NotFoundException(
+        'Não foi encontrada uma categoria com este id',
+      );
     }
   }
 }

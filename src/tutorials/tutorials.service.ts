@@ -10,8 +10,6 @@ import { CreateTutorialDto } from './dto/create-tutorial.dto';
 import { UpdateTutorialDto } from './dto/update-tutorial.dto';
 import { Tutorial } from './entities/tutorial.entity';
 
-import { Express } from 'express';
-
 @Injectable()
 export class TutorialsService {
   constructor(
@@ -20,18 +18,19 @@ export class TutorialsService {
     private categoriesService: CategoriesService,
   ) {}
 
-  // Cria um posto de trabalho
+  // Cria um tutorial
   async createTutorial(
-    createTutorialDto: CreateTutorialDto
+    createTutorialDto: CreateTutorialDto,
   ): Promise<Tutorial> {
     try {
-      const { category_id } =
-        createTutorialDto;
-      const category = await this.categoriesService.findCategoryById(category_id);
+      const { category_id } = createTutorialDto;
+      const category = await this.categoriesService.findCategoryById(
+        category_id,
+      );
 
       const tutorial = this.tutorialRepo.create({
         ...createTutorialDto,
-        category
+        category,
       });
       await this.tutorialRepo.save(tutorial);
       return tutorial;
@@ -40,7 +39,7 @@ export class TutorialsService {
     }
   }
 
-  // Obtém todos os postos de trabalho
+  // Obtém todos os tutoriais
   async findAll() {
     try {
       const res = await this.tutorialRepo.find({
@@ -52,7 +51,7 @@ export class TutorialsService {
     }
   }
 
-  // Obtém um posto de trabalho pelo id
+  // Obtém um tutorial pelo id
   async findTutorial(id: string): Promise<Tutorial> {
     try {
       const res = await this.tutorialRepo.findOne({
@@ -66,14 +65,13 @@ export class TutorialsService {
     }
   }
 
-  // Atualiza um posto de trabalho de acordo com o id e os dados atualizados
+  // Atualiza um tutorial de acordo com o id e os dados atualizados
   async updateTutorial(
     id: string,
     updateTutorialDto: UpdateTutorialDto,
   ): Promise<Tutorial> {
     try {
-      const { category_id } =
-        updateTutorialDto;
+      const { category_id } = updateTutorialDto;
 
       const tutorial = await this.tutorialRepo.findOneBy({ id });
       const category = category_id
@@ -83,7 +81,7 @@ export class TutorialsService {
       await this.tutorialRepo.save({
         id,
         ...updateTutorialDto,
-        category
+        category,
       });
 
       return await this.tutorialRepo.findOneBy({ id });
@@ -92,19 +90,18 @@ export class TutorialsService {
     }
   }
 
-  // Realoca os postos de trabalho filhos e deleta o posto de trabalho pai
-  async deleteTutorial(
-    id: string
-  ): Promise<string> {
-    const res = await this.tutorialRepo.findOneBy({ id });
+  // Deleta o tutorial de acordo com o id
+  async deleteTutorial(idTutorial: string): Promise<string> {
+    const res = await this.tutorialRepo.findOneBy({ id: idTutorial });
     if (!res) {
       throw new NotFoundException('Tutorial não encontrado');
     }
     try {
-      await this.tutorialRepo.delete({ id });
+      await this.tutorialRepo.delete({ id: idTutorial });
 
       return 'Deletado com sucesso';
     } catch (err) {
+      console.log(err);
       throw new InternalServerErrorException(err.message);
     }
   }
