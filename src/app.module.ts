@@ -5,6 +5,7 @@ import configuration from './configs/configuration';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
+import { TutorialsModule } from './tutorials/tutorials.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CategoriesModule } from './categories/categories.module';
     }),
     CacheModule.register({ isGlobal: true }),
     CategoriesModule,
+    TutorialsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

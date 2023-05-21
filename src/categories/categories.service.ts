@@ -61,7 +61,7 @@ export class CategoriesService {
 
   async deleteCategory(idCategory: string) {
     const result = await this.categoryRepo.delete({ id: idCategory });
-    if (!result) throw new NotFoundException('Cidade não encontrada');
+    if (!result) throw new NotFoundException('Categoria não encontrada');
     if (result.affected === 0) {
       throw new NotFoundException(
         'Não foi encontrada uma categoria com este id',

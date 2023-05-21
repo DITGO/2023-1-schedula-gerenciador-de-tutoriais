@@ -8,16 +8,17 @@ import {
   Post,
   Put,
   UseInterceptors,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
+import { Category } from './entities/category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
 
 @Controller('categories')
 @UseInterceptors(CacheInterceptor)
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(private categoriesService: CategoriesService) {}
 
   @Get()
   async findCategories(): Promise<Category[]> {
@@ -44,9 +45,17 @@ export class CategoriesController {
 
   @Delete(':id')
   async deleteCategory(@Param('id') id: string) {
-    await this.categoriesService.deleteCategory(id);
-    return {
-      message: 'Categoria removida com sucesso',
-    };
+    try {
+      await this.categoriesService.deleteCategory(id);
+      return 'Categoria removida com sucesso';
+    } catch (error) {
+      if (error.code === '23503') {
+        throw new InternalServerErrorException(
+          'Não é possível remover categorias associadas a tutoriais',
+        );
+      } else {
+        throw new InternalServerErrorException(error.message);
+      }
+    }
   }
 }
