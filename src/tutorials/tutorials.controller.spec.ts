@@ -42,6 +42,7 @@ describe('TutorialsController', () => {
               .mockResolvedValue(mockTutorialEntityList[0]),
             updateTutorial: jest.fn().mockResolvedValue(mockUpdateTutorialDto),
             deleteTutorial: jest.fn().mockResolvedValue('Deletado com sucesso'),
+            deleteTutorials: jest.fn().mockResolvedValue('Deletados com sucesso'),
           },
         },
       ],
@@ -123,4 +124,41 @@ describe('TutorialsController', () => {
       expect(service.deleteTutorial).toHaveBeenCalledWith(id);
     });
   });
+
+  // Create two mocks for deleteTutorials
+  const mockTutorials = [
+    {
+      id: '1',
+      name: 'mockStation',
+      category_id: mockUuid,
+      filename: 'mockFile',
+      data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10]
+    },
+    {
+      id: '2',
+      name: 'mockStation',
+      category_id: mockUuid,
+      filename: 'mockFile',
+      data: [37, 80, 68, 70, 45, 49, 46, 52, 10, 37, 226, 227, 207, 211, 10]
+    }
+  ];
+
+
+  describe('deleteManyTutorials', () => {
+    it('should delete many tutorial entities succesfully', async () => {
+
+
+      const ids = mockTutorials.map(tutorial => tutorial.id);
+
+      const result = await controller.deleteTutorials(ids);
+
+      expect(result).toMatch('Deletados com sucesso');
+
+      expect(service.deleteTutorials).toHaveBeenCalledTimes(1);
+
+      expect(service.deleteTutorials).toHaveBeenCalledWith(ids);
+    });
+  }
+  );
+
 });
