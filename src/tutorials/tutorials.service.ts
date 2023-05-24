@@ -104,4 +104,14 @@ export class TutorialsService {
       throw new InternalServerErrorException(err.message);
     }
   }
+
+  // Deleta uma lista de tutoriais
+  async deleteTutorials(ids: string[]): Promise<string> {
+    try {
+      await this.tutorialRepo.delete(ids);
+      return 'Deletados com sucesso';
+    } catch (err) {
+      throw new InternalServerErrorException(err.message);
+    }
+  }
 }

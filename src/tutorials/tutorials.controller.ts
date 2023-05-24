@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   CacheInterceptor,
   UploadedFile,
+  ParseArrayPipe,
 } from '@nestjs/common';
 import { TutorialsService } from './tutorials.service';
 import { CreateTutorialDto } from './dto/create-tutorial.dto';
@@ -66,5 +67,13 @@ export class TutorialsController {
   @Delete(':id')
   async deleteTutorial(@Param('id') id: string): Promise<string> {
     return await this.tutorialService.deleteTutorial(id);
+  }
+
+  // Rota para excluir lista de tutoriais cadastrados em lote
+  @Delete(
+    'delete-tutorials/:ids',
+  )
+  async deleteTutorials(@Param('ids', ParseArrayPipe) ids: string[]): Promise<string> {
+    return await this.tutorialService.deleteTutorials(ids);
   }
 }
