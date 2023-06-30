@@ -57,8 +57,11 @@ export class TutorialsController {
     @Body() updateTutorialDto: UpdateTutorialDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Tutorial> {
-    updateTutorialDto.filename = file.originalname;
-    updateTutorialDto.data = file.buffer;
+
+    if (file){
+      updateTutorialDto.filename = file.originalname;
+      updateTutorialDto.data = file.buffer;
+    }
 
     return await this.tutorialService.updateTutorial(id, updateTutorialDto);
   }
