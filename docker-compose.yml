@@ -21,7 +21,7 @@ services:
       - DATABASE_DB=schedula_tutorial
       - DATABASE_PORT=5432
     depends_on:
-      - postgres
+      - pgadmin
 
   postgres:
     image: postgres:12-alpine
