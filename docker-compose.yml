@@ -24,7 +24,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:alpine
+    image: postgres:12-alpine
     container_name: schedula_tutorial_db
     ports:
       - "5106:5432"
